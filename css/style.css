@@ -158,7 +158,6 @@ img {
 
 .logo img {
     height: 40px;
-    filter: invert(1);
     /* Ensure logo is white if it's black */
 }
 
