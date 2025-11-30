@@ -138,4 +138,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const revealElements = document.querySelectorAll('.reveal-text, .reveal-text-delay, .service-card, .work-item, .blog-card, .section-title, .section-desc');
     revealElements.forEach(el => observer.observe(el));
+
+    // Team Slideshow
+    const slides = document.querySelectorAll('.team-slide');
+    const dots = document.querySelectorAll('.slideshow-dots .dot');
+    let currentSlide = 0;
+    let slideshowInterval;
+
+    function showSlide(index) {
+        // Remove active class from all slides and dots
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        // Add active class to current slide and dot
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function startSlideshow() {
+        // Auto-advance every 4 seconds
+        slideshowInterval = setInterval(nextSlide, 4000);
+    }
+
+    function resetSlideshow() {
+        clearInterval(slideshowInterval);
+        startSlideshow();
+    }
+
+    // Add click event to dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentSlide = index;
+            showSlide(currentSlide);
+            resetSlideshow(); // Reset timer when manually clicking
+        });
+    });
+
+    // Start slideshow if slides exist
+    if (slides.length > 0) {
+        startSlideshow();
+    }
 });
