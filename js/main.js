@@ -90,6 +90,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Services Modal Handler
+    const servicesModal = document.getElementById('servicesModal');
+    const viewAllServicesBtn = document.getElementById('viewAllServicesBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalContactBtn = document.getElementById('modalContactBtn');
+
+    if (viewAllServicesBtn && servicesModal) {
+        // Open modal
+        viewAllServicesBtn.addEventListener('click', () => {
+            servicesModal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+
+        // Close modal on close button click
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', () => {
+                servicesModal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+        }
+
+        // Close modal when clicking on background
+        servicesModal.addEventListener('click', (e) => {
+            if (e.target === servicesModal) {
+                servicesModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && servicesModal.classList.contains('active')) {
+                servicesModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Modal contact button - close modal and scroll to contact
+        if (modalContactBtn) {
+            modalContactBtn.addEventListener('click', () => {
+                servicesModal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+    }
+
     const revealElements = document.querySelectorAll('.reveal-text, .reveal-text-delay, .service-card, .work-item, .blog-card, .section-title, .section-desc');
     revealElements.forEach(el => observer.observe(el));
 });

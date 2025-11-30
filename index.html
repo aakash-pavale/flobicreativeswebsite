@@ -73,27 +73,118 @@
                 <div class="services-grid">
                     <div class="service-card">
                         <div class="service-icon">✦</div>
-                        <h3>Branding Strategy</h3>
-                        <p>We define your voice, values, and vision to build a brand that resonates.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">✎</div>
-                        <h3>Logo Design</h3>
-                        <p>Memorable, timeless, and versatile logos that anchor your visual identity.</p>
+                        <h3>Branding & Identity</h3>
+                        <p>Strategic brand development including brand identity, positioning, and AI-assisted logo
+                            creation.</p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">💻</div>
                         <h3>Web Development</h3>
-                        <p>High-performance, stunning websites built with the latest trending technologies.</p>
+                        <p>Responsive, e-commerce, and CMS-integrated websites with ongoing maintenance and support.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎨</div>
+                        <h3>UX/UI Design</h3>
+                        <p>User-centered design for web and mobile, creating intuitive and engaging digital experiences.
+                        </p>
                     </div>
                     <div class="service-card">
                         <div class="service-icon">📱</div>
-                        <h3>Social Media</h3>
-                        <p>Strategic content and management to grow your presence and engage your audience.</p>
+                        <h3>Social Media Management</h3>
+                        <p>Content creation, advertising campaigns, analytics, and strategic social media growth.</p>
                     </div>
+                    <div class="service-card">
+                        <div class="service-icon">🤖</div>
+                        <h3>AI-Powered Solutions</h3>
+                        <p>Generative AI for design, marketing analytics, and no-code/low-code customization tools.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>Digital Marketing</h3>
+                        <p>Strategic consulting, campaign management, and data-driven marketing solutions.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🛒</div>
+                        <h3>E-commerce Solutions</h3>
+                        <p>Complete e-commerce development with secure payment integration and inventory management.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🎬</div>
+                        <h3>Content Creation</h3>
+                        <p>AI-driven graphic and video content, social media assets, and brand storytelling.</p>
+                    </div>
+                </div>
+                <div class="services-cta">
+                    <button class="btn btn-secondary" id="viewAllServicesBtn">View All Services</button>
                 </div>
             </div>
         </section>
+
+        <!-- Services Modal -->
+        <div id="servicesModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Our Complete Service Portfolio</h2>
+                    <button class="modal-close" id="closeModalBtn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="service-category">
+                        <h3>🎯 Branding & Identity</h3>
+                        <ul>
+                            <li>Branding Strategy</li>
+                            <li>Brand Identity Development</li>
+                            <li>Logo Design (including AI-assisted logo creation)</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h3>💻 Website Design & Development</h3>
+                        <ul>
+                            <li>Website Design and Development</li>
+                            <li>UX/UI Design</li>
+                            <li>Responsive and Mobile-Friendly Websites</li>
+                            <li>E-commerce Website Solutions</li>
+                            <li>Content Management System (CMS) Integration</li>
+                            <li>Website Maintenance and Support</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h3>📱 Social Media & Content</h3>
+                        <ul>
+                            <li>Social Media Management</li>
+                            <li>Social Media Advertising and Campaigns</li>
+                            <li>Content Creation for Social Media</li>
+                            <li>Social Media Analytics and Reporting</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h3>🤖 AI-Powered Services</h3>
+                        <ul>
+                            <li>AI-Driven Design Automation</li>
+                            <li>Generative AI for Graphic and Video Content</li>
+                            <li>AI-Powered Marketing and Brand Analytics</li>
+                            <li>No-Code/Low-Code AI Website Customization Tools</li>
+                        </ul>
+                    </div>
+
+                    <div class="service-category">
+                        <h3>📊 Digital Marketing & Strategy</h3>
+                        <ul>
+                            <li>Digital Marketing Strategy and Consulting</li>
+                            <li>Campaign Planning and Execution</li>
+                            <li>Performance Analytics and Optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="services-modal-cta">
+                        <p>Ready to transform your brand with our comprehensive services?</p>
+                        <a href="#contact" class="btn btn-primary" id="modalContactBtn">Let's Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <section id="work" class="work section-padding">
             <div class="container">
@@ -147,18 +238,66 @@
             <div class="container">
                 <div class="section-header">
                     <h2 class="section-title">The Curiosity Room</h2>
-                    <p class="section-desc">Latest Insights</p>
+                    <p class="section-desc">Latest Episode</p>
                 </div>
                 <div class="teaser-card reveal-text-delay">
                     <div class="teaser-content">
-                        <h3>Ep. 1: The Future of Digital Design</h3>
-                        <p>Join us as we discuss the evolving landscape of digital creativity and what it means for
-                            brands in 2025.</p>
+                        <h3>Latest Insights & Conversations</h3>
+                        <p>Dive into our newest episode featuring conversations about innovation, creativity, and the
+                            future of digital experiences.</p>
                         <a href="curiosity.html" class="btn btn-primary">Watch Now</a>
                     </div>
                     <div class="teaser-visual">
-                        <div class="play-button">▶</div>
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/xlk1QV7patI"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen
+                            style="border-radius: 20px;"></iframe>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="latest-blog" class="latest-blog section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Latest from the Blog</h2>
+                    <p class="section-desc">Fresh Insights & Strategy</p>
+                </div>
+                <div class="teaser-card reveal-text-delay"
+                    style="background: var(--surface-color); border: 1px solid var(--border-color); border-radius: 30px; padding: 3rem; align-items: center;">
+                    <div class="teaser-content">
+                        <div
+                            style="display: flex; gap: 1rem; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+                            <span style="color: var(--accent-color); font-weight: 500;">Technology & AI</span>
+                            <span>•</span>
+                            <span>Nov 30, 2025</span>
+                        </div>
+                        <h3 style="font-size: 2rem; margin-bottom: 1rem;">The Agentic Enterprise: A Strategic Blueprint
+                            for Generative AI Integration</h3>
+                        <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem;">Discover how
+                            leading organizations are deploying specialized AI agents across four key pillars: customer
+                            engagement, employee productivity, data intelligence, and creative processes.</p>
+                        <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                            <span
+                                style="background: rgba(99, 102, 241, 0.1); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">🎧
+                                Audio Available</span>
+                            <span
+                                style="background: rgba(99, 102, 241, 0.1); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">🧠
+                                Interactive Mind Map</span>
+                            <span
+                                style="background: rgba(99, 102, 241, 0.1); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem;">📊
+                                Real-World Examples</span>
+                        </div>
+                        <a href="agentic-enterprise.html" class="btn btn-primary">Read Article</a>
+                    </div>
+                    <div style="min-width: 350px; height: 300px; border-radius: 20px; overflow: hidden;">
+                        <img src="assets/blog-images/agentic-enterprise.jpg" alt="The Agentic Enterprise"
+                            style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="blog.html" class="btn btn-secondary">View All Articles</a>
                 </div>
             </div>
         </section>
