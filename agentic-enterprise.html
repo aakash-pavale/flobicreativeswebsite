@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agentic Enterprise: A Strategic Blueprint for Generative AI Integration | Flobi Creatives</title>
+    <meta name="description"
+        content="A strategic blueprint for enterprise-wide generative AI integration, exploring the four key pillars of AI-driven transformation: customer engagement, employee productivity, data intelligence, and creative processes.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- D3.js for interactive mind map -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <style>
+        .audio-player-container {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(168, 85, 247, 0.1));
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .audio-player-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .audio-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #6c5ce7, #a855f7);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .audio-player-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+
+        .mindmap-container {
+            background: #0a0a0a;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mindmap-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .mindmap-header h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mindmap-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        #mindmap {
+            width: 100%;
+            height: 600px;
+            cursor: grab;
+        }
+
+        #mindmap:active {
+            cursor: grabbing;
+        }
+
+        .node {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover {
+            filter: brightness(1.2);
+        }
+
+        .node circle {
+            stroke-width: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .node:hover circle {
+            stroke-width: 5px;
+        }
+
+        .node text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            pointer-events: none;
+        }
+
+        .link {
+            fill: none;
+            stroke-width: 2px;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            opacity: 1;
+            stroke-width: 3px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            max-width: 300px;
+            border: 1px solid rgba(168, 85, 247, 0.5);
+        }
+
+        .data-table {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #6c5ce7, #a855f7);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            #mindmap {
+                height: 400px;
+            }
+
+            .data-table {
+                font-size: 0.85rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Flobi Creatives">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#work" class="nav-link">Work</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="curiosity.html" class="nav-link">The Curiosity Room</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="index.html#contact" class="nav-link btn-primary">Let's Talk</a></li>
+                </ul>
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article class="blog-post-header">
+            <div class="container">
+                <div class="blog-meta-header">
+                    <a href="blog.html" class="back-link">← Back to Blog</a>
+                    <span class="separator">•</span>
+                    <span class="blog-category">Technology & AI</span>
+                    <span class="separator">•</span>
+                    <span class="blog-date">Nov 30, 2025</span>
+                </div>
+                <h1 class="article-title">The Agentic Enterprise: A Strategic Blueprint for Generative AI Integration
+                </h1>
+                <p class="author-info">By Aakash Pavale (COO - NEFEX | CEO - Flobi Creatives)</p>
+            </div>
+        </article>
+
+        <section class="section-padding">
+            <div class="container article-container">
+                <div class="article-content">
+                    <!-- Audio Player -->
+                    <div class="audio-player-container">
+                        <div class="audio-player-header">
+                            <div class="audio-icon">🎧</div>
+                            <div>
+                                <h3 class="audio-player-title">Listen to this article</h3>
+                                <p style="margin: 0; color: rgba(255, 255, 255, 0.7); font-size: 0.9rem;">Prefer
+                                    listening? Play the audio version instead of reading</p>
+                            </div>
+                        </div>
+                        <audio controls>
+                            <source src="assets/audio-files/Generative_AI_Real_World_Business_Impact.m4a"
+                                type="audio/mp4">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <h2>1. Introduction: From Experimentation to Enterprise Imperative</h2>
+                    <p class="lead">
+                        Generative artificial intelligence is no longer a technology of the future; it is a present-day
+                        reality being actively deployed by the world's leading organizations to forge new sources of
+                        operational leverage and competitive advantage. The pace of this transformation is staggering.
+                        In the past year and a half alone, the number of real-world, production-grade generative AI use
+                        cases has grown by a factor of ten, signaling a decisive shift from cautious experimentation to
+                        strategic, enterprise-wide adoption.
+                    </p>
+
+                    <p>
+                        To capitalize on this technological sea change, organizations must move beyond isolated
+                        proofs-of-concept. The central imperative is to build a new operational fabric for the
+                        enterprise—an intelligent, interconnected system of specialized AI "agents" that automates
+                        complex workflows, anticipates business needs, and creates a compounding competitive advantage.
+                        This document provides a blueprint for this transformation, exploring the four key pillars where
+                        this agentic model is already delivering measurable impact: customer engagement, employee
+                        productivity, data intelligence, and creative processes.
+                    </p>
+
+                    <h2>2. The Four Pillars of AI-Driven Transformation</h2>
+                    <p>
+                        A strategic approach to AI integration focuses on deploying specialized "agents" to
+                        revolutionize core business functions. This is not about a single, monolithic AI, but rather a
+                        fleet of targeted tools designed to augment human capability and automate complex processes at
+                        scale. This section will analyze the tangible impact of AI across four critical pillars, using
+                        real-world examples from leading companies to illustrate how this transformation is already
+                        underway.
+                    </p>
+
+                    <img src="assets/blog-images/agentic-enterprise.jpg"
+                        alt="AI at Work: Transforming Global Industries"
+                        style="width: 100%; border-radius: 12px; margin: 2rem 0;">
+
+                    <h3>2.1 The Customer Agent: Revolutionizing Engagement and Service</h3>
+                    <p>
+                        Generative AI is fundamentally shifting the economics of customer relationships. The paradigm is
+                        moving beyond reactive support to proactive, hyper-personalized, and persistent engagement. By
+                        deploying Customer Agents, organizations are enabling an infinite scalability of premium,
+                        one-to-one service, turning traditional support centers from cost centers into powerful loyalty
+                        and revenue drivers. These agents are creating a new standard for satisfaction, offering
+                        intelligent, 24/7 assistance that understands intent, anticipates needs, and resolves issues
+                        with unprecedented speed, as demonstrated by organizations across diverse industries.
+                    </p>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Organization</th>
+                                <th>Strategic Application</th>
+                                <th>Quantifiable Business Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Mercari</strong></td>
+                                <td>Deployed AI customer service agents in Japan's largest online marketplace.</td>
+                                <td>Anticipates a 500% ROI while reducing employee workloads by 20%.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Commerzbank</strong></td>
+                                <td>Enhanced their customer-facing chatbot with Gemini models.</td>
+                                <td>Successfully resolves 70% of all inquiries without human intervention.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Deloitte</strong></td>
+                                <td>Developed a "Care Finder" agent to help users find healthcare providers.</td>
+                                <td>Reduced the time to find in-network providers from 5-8 minutes to less than one
+                                    minute.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Definity</strong></td>
+                                <td>Leveraged Google AI to assist contact center team members.</td>
+                                <td>Reduced average call handle times by 20% and boosted overall productivity by 15%.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>LUXGEN</strong></td>
+                                <td>Powered an AI agent on its official LINE account to answer customer questions.</td>
+                                <td>Reduced the workload of human customer service agents by 30%.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        The benefits of AI extend beyond external customer interactions, offering equally transformative
+                        potential for an organization's internal workforce.
+                    </p>
+
+                    <h3>2.2 The Employee Agent: Augmenting Workforce Productivity and Expertise</h3>
+                    <p>
+                        Employee Agents are powerful force multipliers that augment, rather than replace, human talent.
+                        This isn't merely about saving time; it's about increasing the strategic metabolism of the
+                        organization. When employees are augmented by AI, the cycle of research, decision-making, and
+                        execution accelerates, creating a more agile and innovative enterprise. From the architect's
+                        office to the global law firm, Employee Agents are becoming indispensable partners that enhance
+                        expertise and unlock new levels of productivity.
+                    </p>
+
+                    <h4>Automating Toil, Unleashing Talent</h4>
+                    <p>
+                        By automating administrative toil—from drafting routine communications like FinQuery (20%
+                        faster) to summarizing meeting intelligence—Employee Agents redirect thousands of hours of human
+                        capital toward strategic growth and innovation. Architects like Joe the Architect catch up on
+                        long email chains instantly, while employees at Mark Cuban's Cost Plus Drugs save an average of
+                        five hours per week.
+                    </p>
+
+                    <h4>From Data Overload to Instant Insight</h4>
+                    <p>
+                        AI agents empower employees to synthesize vast amounts of information and conduct deep research
+                        in a fraction of the time, turning data overload into actionable intelligence. This capability
+                        allows teams at companies like electric vehicle maker Rivian to get up to speed on complex
+                        topics faster, while global law firm Freshfields leverages NotebookLM to quickly synthesize
+                        large quantities of complex legal information.
+                    </p>
+
+                    <h4>Streamlining Complex Workflows</h4>
+                    <p>
+                        In specialized fields like law and finance, AI streamlines intricate professional processes,
+                        dramatically improving speed and accuracy. Legal tech startup Altumatim uses AI to accelerate
+                        eDiscovery from months to hours, and Harvey deploys AI to automate complex legal document
+                        reviews, allowing professionals to focus on high-value strategic work.
+                    </p>
+
+                    <p>
+                        Augmenting individual employees is the first step. However, their true potential is only
+                        unlocked when they can tap into the organization's collective intelligence—transforming
+                        corporate data from a walled-off archive into a dynamic, queryable asset.
+                    </p>
+
+                    <h3>2.3 The Data Agent: Unlocking Actionable Intelligence at Scale</h3>
+                    <p>
+                        For decades, organizations have collected vast stores of data. Data Agents are the key to
+                        transforming this passive asset into an active, intelligent resource that drives real-time
+                        decision-making. These agents analyze complex datasets to generate predictive insights, optimize
+                        critical operations like supply chains, and make data-driven intelligence accessible across the
+                        entire organization, not just to a small team of analysts. This capability unlocks significant
+                        efficiency and creates new sources of value across industries.
+                    </p>
+
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Industry Application</th>
+                                <th>Exemplary Use Case & Outcome</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Supply Chain & Logistics</strong></td>
+                                <td>Domina, a Colombian logistics company, used Vertex AI to predict package returns.
+                                    This increased delivery effectiveness by 15% and entirely eliminated the time spent
+                                    on manual report generation.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Retail & Ecommerce</strong></td>
+                                <td>Sojern, a digital marketing platform, uses its AI-driven targeting system to process
+                                    billions of real-time traveler signals, reducing the time to generate a target
+                                    audience from two weeks to under two days.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Manufacturing & Industrial</strong></td>
+                                <td>BMW Group uses AI to create digital twins of its physical assets. The system
+                                    performs thousands of simulations to identify and implement optimizations that
+                                    improve distribution efficiency.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Financial Services</strong></td>
+                                <td>Carbon Underwriting uses Gemini to automate complex data categorization for
+                                    insurance claims. This allowed the company to deploy a solution in days that
+                                    previously took months of manual data science work.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        Once an organization's data is harnessed for intelligence, AI can then be used to scale its
+                        creative and marketing efforts with unprecedented speed and personalization.
+                    </p>
+
+                    <h3>2.4 The Creative Agent: Scaling Personalized Content and Innovation</h3>
+                    <p>
+                        Generative AI is fundamentally altering the economics of content creation, enabling a strategy
+                        of "mass personalization" that was previously a theoretical ideal. Creative Agents empower
+                        marketing and design teams to produce hyper-personalized assets at a scale and velocity that
+                        were previously impossible, allowing brands to speak to markets of one, at scale. This
+                        dramatically increases campaign effectiveness, engagement, and return on investment.
+                    </p>
+
+                    <h4>1. Hyper-Personalized Advertising</h4>
+                    <p>
+                        AI generates thousands of unique ad variations tailored to specific audiences while maintaining
+                        strict brand consistency. Virgin Voyages, for instance, uses Veo to create thousands of
+                        hyper-personalized video ads and emails that maintain the company's distinct brand voice and
+                        style.
+                    </p>
+
+                    <h4>2. Accelerated Campaign Creation</h4>
+                    <p>
+                        Production timelines that once spanned weeks or months are being compressed into days or even
+                        hours. Kraft Heinz is leveraging Imagen and Veo to speed up its campaign creation process from
+                        eight weeks to just eight hours, enabling the company to react to market trends with far greater
+                        agility.
+                    </p>
+
+                    <h4>3. Enhanced Ad Performance</h4>
+                    <p>
+                        AI-driven creative assets are delivering superior engagement and financial returns. A campaign
+                        developed by Monks for the brand Hatch delivered an 80% improved click-through rate and a 31%
+                        improved cost-per-purchase compared to other campaigns, demonstrating the tangible ROI of
+                        AI-powered creative.
+                    </p>
+
+                    <h4>4. Democratized Content Production</h4>
+                    <p>
+                        Modern AI tools empower all employees, not just professionally trained designers, to create
+                        high-quality, on-brand content. Monday.com leverages Veo to enable its teams to produce training
+                        and social media content in a fraction of the time, freeing up designers to focus on more
+                        strategic initiatives.
+                    </p>
+
+                    <p>
+                        With these transformative capabilities demonstrated across the four pillars, how should
+                        executive leadership approach a strategic, enterprise-wide integration?
+                    </p>
+
+                    <!-- Interactive Mind Map -->
+                    <div class="mindmap-container">
+                        <div class="mindmap-header">
+                            <h3>🧠 Interactive AI Enterprise Strategy Map</h3>
+                            <p>Click and drag nodes to explore the strategic framework • Hover for details</p>
+                        </div>
+                        <div id="mindmap"></div>
+                        <div class="tooltip" id="tooltip"></div>
+                    </div>
+
+                    <h2>3. A Strategic Framework for Integration</h2>
+                    <p>
+                        Moving from isolated successes to enterprise-wide transformation requires a deliberate strategic
+                        framework. Piloting a single chatbot is not a strategy; true value is unlocked when AI is woven
+                        into the fabric of the organization's core operations. This section provides a high-level guide
+                        for executive leadership to steer their organization's AI adoption journey effectively and
+                        responsibly.
+                    </p>
+
+                    <h3>1. Target Value Chains, Not Just Functions</h3>
+                    <p>
+                        The first strategic imperative is to map core value chains—such as "idea-to-launch" or
+                        "quote-to-cash"—against the four agent types discussed in this paper. The objective is to
+                        identify the end-to-end processes that hold the most potential for high-impact, AI-driven
+                        improvement based on the organization's unique strategic priorities, whether that is enhancing
+                        customer loyalty, boosting operational efficiency, or accelerating innovation.
+                    </p>
+
+                    <h3>2. Prioritize High-Value, Measurable Use Cases</h3>
+                    <p>
+                        Initial efforts must be focused on projects with clear, quantifiable outcomes. This approach
+                        builds organizational momentum, secures buy-in from key stakeholders, and demonstrates tangible
+                        business value. Mirror the successes of companies like Mercari, which targeted a 500% ROI with
+                        its customer service agent, or United Wholesale Mortgage, which doubled underwriter
+                        productivity, to ensure early initiatives deliver undeniable impact.
+                    </p>
+
+                    <h3>3. Cultivate an Agentic Workforce</h3>
+                    <p>
+                        Successful integration is not about automation alone; it is about cultivating a new culture
+                        where employees actively seek to build or deploy agents to solve problems. The strategy must be
+                        to provide employees with the tools and training to leverage AI in their daily work. The model
+                        for this cultural shift is TELUS, which provided its proprietary AI platform to over 57,000 team
+                        members. This led to over 500,000 hours in time savings and fostered a bottom-up culture of
+                        innovation.
+                    </p>
+
+                    <h3>4. Build on a Scalable and Secure Foundation</h3>
+                    <p>
+                        To move from individual successes to enterprise scale, organizations require a robust and
+                        unified technology platform. A common foundation, like the Google Cloud and Vertex AI platform
+                        mentioned throughout the source examples, enables consistent security, governance, and data
+                        privacy controls. It also provides the ability to efficiently scale winning solutions and best
+                        practices across the enterprise, turning isolated victories into a comprehensive, compounding
+                        advantage.
+                    </p>
+
+                    <h2>4. Conclusion: The Forward-Looking Enterprise</h2>
+                    <p>
+                        The era of generative AI is definitively "here" and "everywhere." As this paper has
+                        demonstrated, the world's leading organizations are not waiting for the future; they are
+                        actively building it, reaping significant rewards in efficiency, innovation, and customer
+                        satisfaction today. The adoption of generative AI is not a mere technological upgrade but a
+                        fundamental business evolution—and it is poised to be the primary driver of market leadership
+                        for the next decade.
+                    </p>
+
+                    <p>
+                        The question is no longer if this transformation will happen, but who will lead it. The agentic
+                        enterprise is not an IT project; it is the business model of the future. The time to build is
+                        now.
+                    </p>
+
+                    <blockquote>
+                        "The agentic enterprise is not an IT project; it is the business model of the future. The time
+                        to build is now."
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="Flobi Creatives">
+            </div>
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+            <p class="copyright">&copy; 2025 Flobi Creatives. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+
+    <!-- Interactive Mind Map Script -->
+    <script>
+        // Mind map data structure
+        const mindMapData = {
+            name: "AI Enterprise Strategy",
+            description: "Strategic framework for AI integration",
+            children: [
+                {
+                    name: "Customer Agent",
+                    description: "Revolutionizing engagement and service with 24/7 intelligent assistance",
+                    children: [
+                        { name: "500% ROI (Mercari)", description: "AI customer service agents in marketplace" },
+                        { name: "70% Auto-Resolution", description: "Commerzbank chatbot success rate" },
+                        { name: "5min → <1min", description: "Deloitte Care Finder efficiency gain" }
+                    ]
+                },
+                {
+                    name: "Employee Agent",
+                    description: "Augmenting workforce productivity and expertise",
+                    children: [
+                        { name: "5 hrs/week saved", description: "Cost Plus Drugs employee productivity" },
+                        { name: "Weeks → Minutes", description: "Deloitte research acceleration" },
+                        { name: "Months → Hours", description: "Altumatim eDiscovery transformation" }
+                    ]
+                },
+                {
+                    name: "Data Agent",
+                    description: "Unlocking actionable intelligence at scale",
+                    children: [
+                        { name: "15% Delivery ↑", description: "Domina logistics optimization" },
+                        { name: "2 weeks → 2 days", description: "Sojern audience targeting speed" },
+                        { name: "Digital Twins", description: "BMW simulation-driven optimization" }
+                    ]
+                },
+                {
+                    name: "Creative Agent",
+                    description: "Scaling personalized content and innovation",
+                    children: [
+                        { name: "8 weeks → 8 hours", description: "Kraft Heinz campaign creation" },
+                        { name: "80% CTR ↑", description: "Monks/Hatch campaign performance" },
+                        { name: "Mass Personalization", description: "Virgin Voyages video customization" }
+                    ]
+                },
+                {
+                    name: "Integration Framework",
+                    description: "Enterprise-wide transformation strategy",
+                    children: [
+                        { name: "Target Value Chains", description: "Map processes to agent types" },
+                        { name: "Measurable Use Cases", description: "Clear ROI and business impact" },
+                        { name: "Agentic Workforce", description: "Culture of AI-driven innovation" },
+                        { name: "Scalable Foundation", description: "Unified platform for security & growth" }
+                    ]
+                }
+            ]
+        };
+
+        // Set up dimensions
+        const width = document.getElementById('mindmap').offsetWidth;
+        const height = 600;
+
+        // Create SVG
+        const svg = d3.select("#mindmap")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Add zoom behavior
+        const g = svg.append("g");
+
+        const zoom = d3.zoom()
+            .scaleExtent([0.5, 3])
+            .on("zoom", (event) => {
+                g.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Create tree layout
+        const tree = d3.tree()
+            .size([height - 100, width - 200])
+            .separation((a, b) => (a.parent == b.parent ? 1 : 1.2));
+
+        // Convert data to hierarchy
+        const root = d3.hierarchy(mindMapData);
+
+        // Apply tree layout
+        tree(root);
+
+        // Color scale for different branches
+        const colorScale = d3.scaleOrdinal()
+            .domain([0, 1, 2, 3, 4])
+            .range(['#6c5ce7', '#a855f7', '#3b82f6', '#10b981', '#f59e0b']);
+
+        // Draw links
+        g.selectAll('.link')
+            .data(root.links())
+            .enter()
+            .append('path')
+            .attr('class', 'link')
+            .attr('d', d3.linkHorizontal()
+                .x(d => d.y + 100)
+                .y(d => d.x + 50))
+            .attr('stroke', d => {
+                // Color based on parent's position
+                const parentIndex = root.children ? root.children.indexOf(d.source) : 0;
+                return colorScale(parentIndex);
+            });
+
+        // Draw nodes
+        const node = g.selectAll('.node')
+            .data(root.descendants())
+            .enter()
+            .append('g')
+            .attr('class', 'node')
+            .attr('transform', d => `translate(${d.y + 100},${d.x + 50})`)
+            .on('mouseover', function (event, d) {
+                // Show tooltip
+                const tooltip = d3.select('#tooltip');
+                tooltip.style('opacity', 1)
+                    .html(`<strong>${d.data.name}</strong><br>${d.data.description || ''}`)
+                    .style('left', (event.pageX + 10) + 'px')
+                    .style('top', (event.pageY - 28) + 'px');
+
+                // Highlight node
+                d3.select(this).select('circle')
+                    .transition()
+                    .duration(200)
+                    .attr('r', d => d.children ? 10 : 8);
+            })
+            .on('mouseout', function (event, d) {
+                // Hide tooltip
+                d3.select('#tooltip').style('opacity', 0);
+
+                // Reset node
+                d3.select(this).select('circle')
+                    .transition()
+                    .duration(200)
+                    .attr('r', d => d.children ? 8 : 6);
+            })
+            .on('click', function (event, d) {
+                // Toggle children on click
+                if (d.children) {
+                    d._children = d.children;
+                    d.children = null;
+                } else {
+                    d.children = d._children;
+                    d._children = null;
+                }
+                update(root);
+            });
+
+        // Add circles to nodes
+        node.append('circle')
+            .attr('r', d => d.children ? 8 : 6)
+            .attr('fill', d => {
+                if (d.depth === 0) return '#fff';
+                const parentIndex = d.parent && root.children ?
+                    root.children.indexOf(d.parent.depth === 0 ? d : d.parent) : 0;
+                return colorScale(parentIndex);
+            })
+            .attr('stroke', d => d.depth === 0 ? '#6c5ce7' : '#fff');
+
+        // Add labels to nodes
+        node.append('text')
+            .attr('dy', '.31em')
+            .attr('x', d => d.children ? -12 : 12)
+            .attr('text-anchor', d => d.children ? 'end' : 'start')
+            .text(d => d.data.name)
+            .attr('fill', '#fff')
+            .style('font-size', d => d.depth === 0 ? '14px' : '12px')
+            .style('font-weight', d => d.depth === 0 ? '700' : '500');
+
+        // Update function for interactive collapse/expand
+        function update(source) {
+            const duration = 300;
+            const nodes = root.descendants();
+            const links = root.links();
+
+            // Reapply tree layout
+            tree(root);
+
+            // Update nodes
+            const nodeUpdate = g.selectAll('.node')
+                .data(nodes, d => d.data.name);
+
+            // Transition nodes to new position
+            nodeUpdate.transition()
+                .duration(duration)
+                .attr('transform', d => `translate(${d.y + 100},${d.x + 50})`);
+
+            // Update links
+            const linkUpdate = g.selectAll('.link')
+                .data(links, d => d.target.data.name);
+
+            linkUpdate.transition()
+                .duration(duration)
+                .attr('d', d3.linkHorizontal()
+                    .x(d => d.y + 100)
+                    .y(d => d.x + 50));
+        }
+
+        // Initial zoom to fit
+        setTimeout(() => {
+            const bounds = g.node().getBBox();
+            const fullWidth = width;
+            const fullHeight = height;
+            const midX = bounds.x + bounds.width / 2;
+            const midY = bounds.y + bounds.height / 2;
+            const scale = 0.85 / Math.max(bounds.width / fullWidth, bounds.height / fullHeight);
+            const translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
+
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity
+                    .translate(translate[0], translate[1])
+                    .scale(scale));
+        }, 100);
+
+        // Responsive resize
+        window.addEventListener('resize', () => {
+            const newWidth = document.getElementById('mindmap').offsetWidth;
+            svg.attr('width', newWidth);
+            tree.size([height - 100, newWidth - 200]);
+            update(root);
+        });
+    </script>
+</body>
+
+</html>
