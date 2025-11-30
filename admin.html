@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin | Flobi Creatives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+        }
+
+        .admin-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .admin-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-header p {
+            color: var(--text-muted);
+        }
+
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .admin-form {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .form-section input,
+        .form-section select,
+        .form-section textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            font-size: 1rem;
+        }
+
+        .form-section textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+
+        .form-section input:focus,
+        .form-section select:focus,
+        .form-section textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .preview-section {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+        }
+
+        .preview-section h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .preview-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .preview-card .blog-image {
+            height: 200px;
+            background: linear-gradient(45deg, #2b2b2b, #4a4a4a);
+        }
+
+        .preview-card .blog-content {
+            padding: 1.5rem;
+        }
+
+        .code-output {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .code-output pre {
+            margin: 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: #aaa;
+        }
+
+        .copy-btn {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-top: 0.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+        }
+
+        .instructions {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .instructions h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-section {
+                position: static;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>Blog Admin Interface</h1>
+            <p>Create new blog posts by filling out the form below</p>
+        </div>
+
+        <div class="instructions">
+            <h3>How to Use This Admin Interface</h3>
+            <ol>
+                <li>Fill in all the form fields below</li>
+                <li>Preview your blog card and post in the right panel</li>
+                <li>Click "Generate Code" to create the HTML code</li>
+                <li>Copy the Blog Card HTML and add it to <code>blog.html</code> inside the
+                    <code>&lt;div class="blog-grid"&gt;</code></li>
+                <li>Copy the Blog Post HTML and save it as a new file (e.g., <code>post-your-title.html</code>)</li>
+                <li>Update the links in both HTMLs to match the new filename</li>
+            </ol>
+        </div>
+
+        <div class="admin-layout">
+            <div class="admin-form">
+                <h2>Blog Post Details</h2>
+
+                <div class="form-section">
+                    <label for="postTitle">Post Title *</label>
+                    <input type="text" id="postTitle" placeholder="Enter blog post title" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-section">
+                        <label for="postCategory">Category *</label>
+                        <select id="postCategory" required>
+                            <option value="">Select category</option>
+                            <option value="Branding">Branding</option>
+                            <option value="Design">Design</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Business">Business</option>
+                        </select>
+                    </div>
+
+                    <div class="form-section">
+                        <label for="postDate">Publication Date *</label>
+                        <input type="date" id="postDate" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label for="postAuthor">Author Name *</label>
+                    <input type="text" id="postAuthor" placeholder="Enter author name" value="Flobi Creatives" required>
+                </div>
+
+                <div class="form-section">
+                    <label for="postExcerpt">Excerpt (Short Description) *</label>
+                    <textarea id="postExcerpt" placeholder="Write a brief excerpt (1-2 sentences)" rows="3"
+                        required></textarea>
+                </div>
+
+                <div class="form-section">
+                    <label for="postContent">Full Content *</label>
+                    <textarea id="postContent"
+                        placeholder="Write your full blog post content here. You can use HTML tags like <p>, <h2>, <h3>, <ul>, <li>, <blockquote>, etc."
+                        required></textarea>
+                </div>
+
+                <div class="form-section">
+                    <label for="postFilename">Filename (without .html) *</label>
+                    <input type="text" id="postFilename" placeholder="e.g., my-blog-post" required>
+                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Use lowercase letters
+                        and hyphens only</small>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateCode()" style="width: 100%; margin-top: 1rem;">Generate
+                    HTML Code</button>
+            </div>
+
+            <div class="preview-section">
+                <h2>Live Preview</h2>
+
+                <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Blog Card Preview</h3>
+                <div class="preview-card" id="blogCardPreview">
+                    <div class="blog-image">
+                        <div class="placeholder-gradient-1"></div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Category</span>
+                            <span class="blog-date">Date</span>
+                        </div>
+                        <h2 class="blog-title"><a href="#">Your Title Here</a></h2>
+                        <p class="blog-excerpt">Your excerpt will appear here...</p>
+                        <a href="#" class="read-more">Read Article →</a>
+                    </div>
+                </div>
+
+                <div id="codeOutputSection" style="display: none;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.2rem;">Generated Code</h3>
+
+                    <h4 style="margin-bottom: 0.5rem;">Blog Card HTML (Add to blog.html)</h4>
+                    <div class="code-output">
+                        <pre id="blogCardCode"></pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('blogCardCode', this)">Copy Blog Card Code</button>
+
+                    <h4 style="margin-bottom: 0.5rem; margin-top: 2rem;">Blog Post HTML (Save as new file)</h4>
+                    <div class="code-output">
+                        <pre id="blogPostCode"></pre>
+                    </div>
+                    <button class="copy-btn" onclick="copyCode('blogPostCode', this)">Copy Blog Post Code</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Live preview update
+        const inputs = {
+            title: document.getElementById('postTitle'),
+            category: document.getElementById('postCategory'),
+            date: document.getElementById('postDate'),
+            author: document.getElementById('postAuthor'),
+            excerpt: document.getElementById('postExcerpt'),
+            filename: document.getElementById('postFilename')
+        };
+
+        function formatDate(dateString) {
+            if (!dateString) return 'Date';
+            const date = new Date(dateString);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
+        }
+
+        function updatePreview() {
+            const preview = document.getElementById('blogCardPreview');
+            const title = inputs.title.value || 'Your Title Here';
+            const category = inputs.category.value || 'Category';
+            const date = formatDate(inputs.date.value);
+            const excerpt = inputs.excerpt.value || 'Your excerpt will appear here...';
+            const filename = inputs.filename.value || 'blog-post';
+
+            preview.querySelector('.blog-category').textContent = category;
+            preview.querySelector('.blog-date').textContent = date;
+            preview.querySelector('.blog-title a').textContent = title;
+            preview.querySelector('.blog-excerpt').textContent = excerpt;
+            preview.querySelector('.blog-title a').href = filename + '.html';
+            preview.querySelector('.read-more').href = filename + '.html';
+        }
+
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+
+        function generateCode() {
+            const title = inputs.title.value;
+            const category = inputs.category.value;
+            const date = formatDate(inputs.date.value);
+            const author = document.getElementById('postAuthor').value;
+            const excerpt = inputs.excerpt.value;
+            const content = document.getElementById('postContent').value;
+            const filename = inputs.filename.value;
+
+            if (!title || !category || !inputs.date.value || !author || !excerpt || !content || !filename) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Generate blog card HTML
+            const blogCardHTML = `                    <article class="blog-card">
+                        <div class="blog-image">
+                            <div class="placeholder-gradient-1"></div>
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">${category}</span>
+                                <span class="blog-date">${date}</span>
+                            </div>
+                            <h2 class="blog-title"><a href="${filename}.html">${title}</a></h2>
+                            <p class="blog-excerpt">
+                                ${excerpt}
+                            </p>
+                            <a href="${filename}.html" class="read-more">Read Article →</a>
+                        </div>
+                    </article>`;
+
+            // Generate blog post HTML
+            const blogPostHTML = `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${title} | Flobi Creatives</title>
+    <meta name="description" content="${excerpt}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Flobi Creatives">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#work" class="nav-link">Work</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="curiosity.html" class="nav-link">The Curiosity Room</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="index.html#contact" class="nav-link btn-primary">Let's Talk</a></li>
+                </ul>
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <article class="blog-post-header">
+            <div class="container">
+                <div class="blog-meta-header">
+                    <a href="blog.html" class="back-link">← Back to Blog</a>
+                    <span class="separator">•</span>
+                    <span class="blog-category">${category}</span>
+                    <span class="separator">•</span>
+                    <span class="blog-date">${date}</span>
+                </div>
+                <h1 class="article-title">${title}</h1>
+                <p class="author-info">By ${author}</p>
+            </div>
+        </article>
+
+        <section class="section-padding">
+            <div class="container article-container">
+                <div class="article-content">
+${content}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="Flobi Creatives">
+            </div>
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+            <p class="copyright">&copy; 2025 Flobi Creatives. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>`;
+
+// Display the generated code
+document.getElementById('blogCardCode').textContent = blogCardHTML;
+document.getElementById('blogPostCode').textContent = blogPostHTML;
+document.getElementById('codeOutputSection').style.display = 'block';
+}
+
+function copyCode(elementId, button) {
+const code = document.getElementById(elementId).textContent;
+navigator.clipboard.writeText(code).then(() => {
+button.textContent = '✓ Copied!';
+button.classList.add('copied');
+setTimeout(() => {
+button.textContent = button.classList.contains('copied') ? 'Copy Blog Card Code' : 'Copy Blog Post Code';
+button.classList.remove('copied');
+}, 2000);
+});
+}
+
+// Set today's date as default
+document.getElementById('postDate').valueAsDate = new Date();
+updatePreview();
+</script>
+</body>
+
+</html>

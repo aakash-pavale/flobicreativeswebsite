@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Flobi Creatives</title>
+    <meta name="description"
+        content="Insights, stories, and thoughts on branding, design, and technology from Flobi Creatives.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo.png" alt="Flobi Creatives">
+            </a>
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="index.html#services" class="nav-link">Services</a></li>
+                    <li><a href="index.html#work" class="nav-link">Work</a></li>
+                    <li><a href="index.html#about" class="nav-link">About</a></li>
+                    <li><a href="curiosity.html" class="nav-link">The Curiosity Room</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li><a href="index.html#contact" class="nav-link btn-primary">Let's Talk</a></li>
+                </ul>
+                <button class="mobile-menu-btn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero blog-hero">
+            <div class="container">
+                <h1 class="hero-title">
+                    <span class="reveal-text">Insights &</span><br>
+                    <span class="reveal-text highlight">Stories</span>
+                </h1>
+                <p class="hero-subtitle reveal-text-delay">
+                    Thoughts on branding, design, technology, and the future of digital experiences.
+                </p>
+            </div>
+            <div class="hero-background">
+                <div class="gradient-blob blob-1"></div>
+                <div class="gradient-blob blob-2"></div>
+            </div>
+        </section>
+
+        <section class="blog-listing section-padding">
+            <div class="container">
+                <div class="blog-grid" id="blogGrid">
+                    <!-- Blog posts -->
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="assets/blog-images/ai-revolution-hero.jpg" alt="AI Revolution"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span class="blog-category">Technology & AI</span>
+                                <span class="blog-date">Nov 30, 2025</span>
+                            </div>
+                            <h2 class="blog-title"><a href="beyond-the-hype-ai-revolution.html">Beyond the Hype: 5
+                                    Surprising Realities of the AI Revolution</a></h2>
+                            <p class="blog-excerpt">
+                                This post explains how the current AI revolution is less about sci‑fi AGI and more about
+                                practical changes in how businesses work, from cleaning up enterprise data and
+                                augmenting employees with AI agents to moving beyond "prompt and pray" toward
+                                orchestrated AI systems.
+                            </p>
+                            <a href="beyond-the-hype-ai-revolution.html" class="read-more">Read Article →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-cta section-padding text-center">
+            <div class="container">
+                <h2 class="section-title">Have a topic in mind?</h2>
+                <p class="section-desc mb-medium">We love exploring new ideas. Let us know what you'd like to read
+                    about.</p>
+                <a href="index.html#contact" class="btn btn-primary">Get in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="Flobi Creatives">
+            </div>
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Twitter</a>
+            </div>
+            <p class="copyright">&copy; 2025 Flobi Creatives. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileBtn.addEventListener('click', () => {
         navList.classList.toggle('active');
         mobileBtn.classList.toggle('active');
-        
+
         // Animate hamburger
         const spans = mobileBtn.querySelectorAll('span');
         if (navList.classList.contains('active')) {
@@ -78,18 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
+
             const name = document.getElementById('contactName').value;
             const email = document.getElementById('contactEmail').value;
             const message = document.getElementById('contactMessage').value;
-            
+
             const subject = `New Inquiry from ${name}`;
             const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-            
+
             window.location.href = `mailto:info@flobicreatives.com?subject=${encodeURIComponent(subject)}&body=${body}`;
         });
     }
 
-    const revealElements = document.querySelectorAll('.reveal-text, .reveal-text-delay, .service-card, .work-item, .section-title, .section-desc');
+    const revealElements = document.querySelectorAll('.reveal-text, .reveal-text-delay, .service-card, .work-item, .blog-card, .section-title, .section-desc');
     revealElements.forEach(el => observer.observe(el));
 });
